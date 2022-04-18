@@ -5,8 +5,7 @@ import math
 #------------DECLARACION DE LA FUNCION Y SU DERIVADA------------
 
 def f(x):
-    return pow(x, -1) - math.tan(x)
-
+    return np.sqrt(2*x+3)
 
 def f_1(x):
     return pow(x, 3) - x
@@ -93,6 +92,24 @@ def NewtonRaphson(x,eps,itMax):
     else:
         print('Raiz: {}'.format(x_1))
 
+#------------Metodo de Iteracion de Punto Fijo------------
+def PuntoFijo(x, eps, itMax):
+    i = 1
+    x_1 = x + 2*eps
+    while i<=itMax and np.abs(x_1-x)>eps:
+        x_1 = f(x)
+        error = np.abs(x_1-x)
+        print('Valor de iteracion {}: {} // ERROR: {}'.format(i, x_1, error))
+        iter += 1
+        x = x_1
+    
+    if i>itMax:
+        print('El metodo no converge en el numero de iteraciones dado. Intente nuevamente con un numero mayor de iteraciones')
+    else:
+        print('Raiz: {}'.format(x_1))
+
+
+
 
 #------------METODO REGULAFALSI------------
 print('\n\n')
@@ -117,3 +134,9 @@ print('\n\n')
 
 print('====Metodo de Newton-Raphson====')
 NewtonRaphson(np.sqrt(1/5), 0.0001, 150)
+
+#------------Metodo de Iteracion de Punto Fijo------------
+print('\n\n')
+
+print('===Metodo de Iteracion de Punto Fijo===')
+PuntoFijo(-4, 0.001, 150)
