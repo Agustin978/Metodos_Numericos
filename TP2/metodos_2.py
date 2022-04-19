@@ -5,7 +5,7 @@ import math
 #------------DECLARACION DE LA FUNCION Y SU DERIVADA------------
 
 def f(x):
-    return np.sqrt(2*x+3)
+    return 3/(x-2)
 
 def f_1(x):
     return pow(x, 3) - x
@@ -93,14 +93,16 @@ def NewtonRaphson(x,eps,itMax):
         print('Raiz: {}'.format(x_1))
 
 #------------Metodo de Iteracion de Punto Fijo------------
+"""
 def PuntoFijo(x, eps, itMax):
     i = 1
-    x_1 = x + 2*eps
+    x_1 = f(x)
     while i<=itMax and np.abs(x_1-x)>eps:
-        x_1 = f(x)
+        #x_1 = f(x)
         error = np.abs(x_1-x)
         print('Valor de iteracion {}: {} // ERROR: {}'.format(i, x_1, error))
-        iter += 1
+        i += 1
+        x_1 = f(x)
         x = x_1
     
     if i>itMax:
@@ -108,6 +110,22 @@ def PuntoFijo(x, eps, itMax):
     else:
         print('Raiz: {}'.format(x_1))
 
+"""
+def PuntoFijo(x, eps, itMax):
+    for i in range(itMax):
+        x_1 = f(x)
+        if np.abs(x_1-x)<eps:
+            error = np.abs(x_1-x)
+            print('Iteracion donde converge {}, Valor del punto fijo: {} // ERROR: {}'.format(i+1, x_1, error))
+            return
+        error = np.abs(x_1-x)
+        print('Valor de iteracion {}: {} // ERROR: {}'.format(i+1, x_1, error))
+        x = x_1
+        
+    if i+1==itMax:
+            print('El metodo no converge en el numero de iteraciones dado. Intente nuevamente con un numero mayor de iteraciones')
+
+    
 
 
 
@@ -139,4 +157,4 @@ NewtonRaphson(np.sqrt(1/5), 0.0001, 150)
 print('\n\n')
 
 print('===Metodo de Iteracion de Punto Fijo===')
-PuntoFijo(-4, 0.001, 150)
+PuntoFijo(0, 0.0001, 150)
