@@ -125,7 +125,6 @@ def PuntoFijo(x, eps, itMax):
     if i+1==itMax:
             print('El metodo no converge en el numero de iteraciones dado. Intente nuevamente con un numero mayor de iteraciones')
 
-    
 
 
 

@@ -82,6 +82,23 @@ def NewtonRaphson(x,eps,intMax):
     while i<=intMax and np.abs(x_1-x)>eps:
         x_1 = x - (f(x))
 """
+
+#------------Metodo de Iteracion de Punto Fijo------------
+def PuntoFijo(x, eps, itMax):
+    for i in range(itMax):
+        x_1 = f(x)
+        if np.abs(x_1-x)<eps:
+            error = np.abs(x_1-x)
+            print('Iteracion donde converge {}, Valor del punto fijo: {} // ERROR: {}'.format(i+1, x_1, error))
+            return
+        error = np.abs(x_1-x)
+        print('Valor de iteracion {}: {} // ERROR: {}'.format(i+1, x_1, error))
+        x = x_1
+        
+    if i+1==itMax:
+            print('El metodo no converge en el numero de iteraciones dado. Intente nuevamente con un numero mayor de iteraciones')
+
+
 print('\n\n')
 
 print('====Metodo de Biseccion====')
@@ -100,4 +117,9 @@ print('====Metodo Secante====')
 sol_3 = Secante(0.5, 1.5, 0.001, 150)
 print(sol_3)
 
+
+#------------Metodo de Iteracion de Punto Fijo------------
 print('\n\n')
+
+print('===Metodo de Iteracion de Punto Fijo===')
+PuntoFijo(0, 0.0001, 150)
