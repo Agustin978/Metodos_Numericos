@@ -5,7 +5,7 @@ import math
 #------------DECLARACION DE LA FUNCION Y SU DERIVADA------------
 
 def f(x):
-    return 3/(x-2)
+    return 1/(x+1)
 
 def f_1(x):
     return pow(x, 3) - x
@@ -156,4 +156,4 @@ NewtonRaphson(np.sqrt(1/5), 0.0001, 150)
 print('\n\n')
 
 print('===Metodo de Iteracion de Punto Fijo===')
-PuntoFijo(0, 0.0001, 150)
+PuntoFijo(1, 0.001, 150)
