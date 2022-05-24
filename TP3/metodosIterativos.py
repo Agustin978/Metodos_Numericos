@@ -1,4 +1,6 @@
 from distutils.log import error
+from re import S
+from tkinter import W
 import numpy as np
 from sklearn.utils import column_or_1d
 from sympy import false
@@ -104,56 +106,31 @@ def Jacobi(A,B,X,iteraTot, precision):
 
 
 #======================== Metodo de SOR =================================
-def Sor(A,B,X,iteraTot,precision,omega):
+def Sor(A, b, omega, X, precision, itMax):
+    Xi = X[:]
+    error = np.linalg.norm(np.matmul(A, Xi) - b) #Calculo de error inicial
     k = 0
-    error = 2*precision
-    cumple = false
-    tamanio = np.shape(A)
-    filas = tamanio[0]
-
-    while not cumple and k < iteraTot:
-        Xi = np.zeros(filas)
-        for i in range(filas):
-            s1 = np.dot(A[i,:i], Xi[:i])
-            s2 = np.dot(A[i,i+1:], Xi[i+1:])
-            Xi[i] = (B[i] - s1 - s2) / (A[i,i] * omega + (1 - omega) * X[i])
-
-        norma = np.linalg.norm(X - Xi)
-        print('Iteracion: {} -> Norma: {}'.format(k, norma))
-        k+=1
-        cumple = norma < precision
+    while error > precision and k < itMax:
+        for i in range(A.shape[0]):
+            sigma = 0
+            for j in range(A.shape[1]):
+                if j != i:
+                    sigma += A[i][j] * Xi[j]
+            Xi[i] = (1 - omega) * Xi[i] + (omega / A[i][i]) * (b[i] - sigma)
+        error = np.linalg.norm(np.matmul(A, Xi) - b)
+        print("X = {}".format(Xi))
+        print('Error: {0:10.6g}\n'.format(error))
+        k += 1
     
-    if k >
-
-    """for i in range(filas):
-        dummy = A[i,i]
-        for j in range(filas):
-            A[i,j] = A[i,j]/dummy
-        
-        B[i] = B[i] / dummy
-    
-    for i in range(filas):
-        suma = B[i]
-        for j in range(filas):
-            if i!=j:
-                suma = suma - A[i,j] * X[j]
-        X[i] = suma
-    
-    iter = 1
-
-    while iter <= iteraTot or error > precision:
-        centinela = 1
-        for i in range(filas):
-            old = X[i]
-            suma = B[i]
-            for j in range(filas):
-                if i!=j:
-                    suma = suma - A[i,j] *X[j]
-            
-            X[i] = omega * suma + (1-omega) * old
-            if centinela == 1 and X[i] != 0:
-                precision = np.abs(( X[i] - old ) / X[i]) * 100
-                if precision"""
+    if error == precision or error < precision:
+        print("El valor final de X con una precision de {} es:".format(precision))
+        print("X = {}".format(Xi))
+        print("EL error es: {}".format(error))
+        print("Se obtuvo en la iteracion {}".format(k))
+    elif k == itMax:
+        print("El valor final obtenido de X con {} iteraciones es:".format(k))
+        print("X = {}".format(Xi))
+        print("El error obtenido es: {}".format(error))
 
 
 
@@ -162,3 +139,6 @@ Gauss_Seidel(A,B,X,20,0.001)
 
 print("\n\n============Metodo Jacobi============")
 Jacobi(A,B,X,20,0.001)
+
+print("\n\n============Metodo de SOR============")
+Sor(A, B, 0.5, X, 0.000001, 12)
