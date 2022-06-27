@@ -2,9 +2,9 @@ from cgi import print_environ
 from ipaddress import collapse_addresses
 import numpy as np
 
-A = np.array([[2,-1,0],[1,6,-2],[4,-3,8]])
-B = np.array([2,-4,5])
-X = np.zeros(3)
+A = np.array([[2,-1,0],[1,6,-2],[4,-3,8]]) #Arreglo de terminos
+B = np.array([2,-4,5]) #Arreglo de soluciones
+X = np.zeros(3) #Arreglo de variables
 
 #============Metodo de Jacobi============
 def jacobi(A, B, X, iteraTot, precision):
@@ -13,7 +13,7 @@ def jacobi(A, B, X, iteraTot, precision):
     tamanio = np.shape(A) #Obtengo filas y columnas de la matriz A
     filas = tamanio[0]
     columnas = tamanio[1]
-    diferenciaErr = np.zeros(filas, dtype=float) #Creo un arreglo de 1s donde guardare los errores calculados en cada operacion
+    diferenciaErr = np.zeros(filas, dtype=float) #Creo un arreglo de 0s donde guardare los errores calculados en cada operacion
     Xi = np.zeros(filas) #Matriz donde guardo los resultados
 
     while error>precision and k < iteraTot:
@@ -49,7 +49,7 @@ def GaussSeidel(A,B,X, iteraTot, precision):
     tamanio = np.shape(A) #Obtengo filas y columnas de la matriz A
     filas = tamanio[0]
     columnas = tamanio[1]
-    diferenciaErr = np.zeros(filas, dtype=float) #Creo un arreglo de 1s donde guardare los errores calculados en cada operacion
+    diferenciaErr = np.zeros(filas, dtype=float) #Creo un arreglo de 0s donde guardare los errores calculados en cada operacion
 
     while error > precision and k < iteraTot:
         k+=1
