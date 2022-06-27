@@ -47,4 +47,4 @@ fi = np.array([278.,-242.,1430.,980.,40.])
 D = DifDiv(xi,fi)
 
 print(D)
-#polinomioInterpolante(xi,fi,D)
+polinomioInterpolante(xi,fi,D)
