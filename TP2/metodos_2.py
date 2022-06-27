@@ -93,24 +93,6 @@ def NewtonRaphson(x,eps,itMax):
         print('Raiz: {}'.format(x_1))
 
 #------------Metodo de Iteracion de Punto Fijo------------
-"""
-def PuntoFijo(x, eps, itMax):
-    i = 1
-    x_1 = f(x)
-    while i<=itMax and np.abs(x_1-x)>eps:
-        #x_1 = f(x)
-        error = np.abs(x_1-x)
-        print('Valor de iteracion {}: {} // ERROR: {}'.format(i, x_1, error))
-        i += 1
-        x_1 = f(x)
-        x = x_1
-    
-    if i>itMax:
-        print('El metodo no converge en el numero de iteraciones dado. Intente nuevamente con un numero mayor de iteraciones')
-    else:
-        print('Raiz: {}'.format(x_1))
-
-"""
 def PuntoFijo(x, eps, itMax):
     for i in range(itMax):
         x_1 = f(x)
