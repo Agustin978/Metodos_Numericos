@@ -76,7 +76,7 @@ def Jacobi(A,B,X,iteraTot, precision):
     tamanio = np.shape(A)
     filas = tamanio[0]
     columnas = tamanio[1]
-    diferencia = np.ones(filas, dtype= float)
+    diferenciaErr = np.zeros(filas, dtype= float)
     Xi = np.zeros(filas) #Vector donde se guardaran los resultados
     while error > precision and k < iteraTot:
         k += 1
@@ -89,8 +89,9 @@ def Jacobi(A,B,X,iteraTot, precision):
             nuevo = nuevo / A[f,f]
             #X[f] = (B[f] - X[f])/A[f,f]
             Xi[f] = nuevo
-            diferencia[f] = np.abs(nuevo - X[f])
-            error = np.max(diferencia)
+            diferenciaErr[f] = np.abs(X[f] - Xi[f])
+            error = np.max(diferenciaErr)
+            X[f] = Xi[f]
         print("X = {}".format(X))
         print("Error: {}\n".format(error))
     
@@ -134,11 +135,11 @@ def Sor(A, b, omega, X, precision, itMax):
 
 
 
-print("\n\n============Metodo Gauss-Seidel============")
-Gauss_Seidel(A,B,X,20,0.001)
+#print("\n\n============Metodo Gauss-Seidel============")
+#Gauss_Seidel(A,B,X,20,0.001)
 
 print("\n\n============Metodo Jacobi============")
-Jacobi(A,B,X,20,0.001)
+#Jacobi(A,B,X,20,0.001)
 
-print("\n\n============Metodo de SOR============")
+#print("\n\n============Metodo de SOR============")
 Sor(A, B, 0.5, X, 0.000001, 12)
