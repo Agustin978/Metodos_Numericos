@@ -9,8 +9,12 @@ from sympy import false
 #B = np.loadtxt('TP3/b.txt', delimiter=',')
 #X = np.loadtxt('TP3/X.txt', delimiter=',')
 
-A = np.array([[2,-1,0],[1,6,-2],[4,-3,8]])
-B = np.array([2,-4,5])
+#A = np.array([[2,-1,0],[1,6,-2],[4,-3,8]])
+#B = np.array([2,-4,5])
+#X = np.zeros(3)
+
+A = np.array([[6,-2,1],[-2,7,2],[1,2,-5]])
+B = np.array([4,1,-4.5])
 X = np.zeros(3)
 
 #=================Metodo Gauss-Seidel
@@ -55,8 +59,8 @@ def Gauss_Seidel(A,B,X,iteraTot,precision):
             nuevo = (B[f] - suma)/A[f,f]
             diferencia[f] = np.abs(nuevo - X[f])
             X[f] = nuevo
-            error = np.max(diferencia)
-        print("X = {}\n".format(X))
+        error = np.max(diferencia)
+        print("X = {}\nError: {}".format(X, error))
 
     if error == precision or error < precision:
         print("El valor final de X con una precision de {} es:".format(precision))
@@ -112,6 +116,7 @@ def Sor(A, b, omega, X, precision, itMax):
     error = np.linalg.norm(np.matmul(A, Xi) - b) #Calculo de error inicial
     k = 0
     while error > precision and k < itMax:
+        print("\nIteracion {}:".format(k+1))
         for i in range(A.shape[0]):
             sigma = 0
             for j in range(A.shape[1]):
@@ -135,11 +140,11 @@ def Sor(A, b, omega, X, precision, itMax):
 
 
 
-#print("\n\n============Metodo Gauss-Seidel============")
-#Gauss_Seidel(A,B,X,20,0.001)
+print("\n\n============Metodo Gauss-Seidel============")
+Gauss_Seidel(A,B,X,20,0.001)
 
-print("\n\n============Metodo Jacobi============")
+#print("\n\n============Metodo Jacobi============")
 #Jacobi(A,B,X,20,0.001)
 
 #print("\n\n============Metodo de SOR============")
-Sor(A, B, 0.5, X, 0.000001, 12)
+#Sor(A, B, 0.5, X, 0.000001, 200)
